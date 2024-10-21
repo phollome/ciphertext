@@ -13,6 +13,7 @@
     "@monaco-editor/react": "^4.6.0",
     "@shikijs/monaco": "^1.21.0",
     "classnames": "^2.5.1",
+    "common-tags": "^1.8.2",
     "localforage": "^1.10.0",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@types/common-tags": "^1.8.4",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",

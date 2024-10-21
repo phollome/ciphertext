@@ -1,5 +1,6 @@
 import * as MonacoEditor from "@monaco-editor/react";
 import { shikiToMonaco } from "@shikijs/monaco";
+import { stripIndent } from "common-tags";
 import localforage from "localforage";
 import * as prettier from "prettier";
 import prettierPluginBabel from "prettier/plugins/babel";
@@ -16,6 +17,13 @@ function evaluate(code: string): Error | null {
     return error as Error;
   }
 }
+
+const defaultValue = stripIndent`
+  const plaintext = document.getElementById("plaintext");
+  plaintext.oninput = function (event) {
+    console.log(event.data);
+  }
+  `;
 
 function Editor(props: { height?: string; fontSize?: number }) {
   const { height = "100%", fontSize = 12 } = props;
@@ -37,7 +45,7 @@ function Editor(props: { height?: string; fontSize?: number }) {
     async function load() {
       const value = await localforage.getItem<string>("code");
 
-      if (value !== null) {
+      if (value !== null && value !== "") {
         editor.setValue(value);
       }
     }
@@ -110,18 +118,33 @@ function Editor(props: { height?: string; fontSize?: number }) {
     run();
   };
 
+  const onReset = () => {
+    async function reset() {
+      if (ref.current === null) {
+        return;
+      }
+      await localforage.removeItem("code");
+      ref.current.setValue(defaultValue);
+
+      onRun();
+    }
+
+    reset();
+
+  };
+
   return (
     <div className="relative h-full">
       <MonacoEditor.Editor
         height={height}
         defaultLanguage="javascript"
-        defaultValue="// code"
+        defaultValue={defaultValue}
         beforeMount={beforeMount}
         onMount={onMount}
         options={{ minimap: { enabled: false }, fontSize, tabSize: 2 }}
       />
       <div className="absolute bottom-0 right-0 p-4 flex gap-2">
-        <Button id="clear">Clear</Button>
+        <Button onClick={onReset}>Reset</Button>
         <Button onClick={onFormat}>Format</Button>
         <Button onClick={onRun}>Run</Button>
       </div>
