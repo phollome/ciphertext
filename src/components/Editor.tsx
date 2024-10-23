@@ -48,6 +48,8 @@ function Editor(props: { height?: string; fontSize?: number }) {
       if (value !== null && value !== "") {
         editor.setValue(value);
       }
+
+      onRun();
     }
 
     let timeout: ReturnType<typeof setTimeout>;
