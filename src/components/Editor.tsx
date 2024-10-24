@@ -19,11 +19,20 @@ function evaluate(code: string): Error | null {
 }
 
 const defaultValue = stripIndent`
-  const plaintext = document.getElementById("plaintext");
-  plaintext.oninput = function (event) {
-    console.log(event.data);
-  }
-  `;
+  const plainTextInput = document.getElementById("plain-text");
+  const encryptedText = document.getElementById("encrypted-text");
+
+  const cipherTextInput = document.getElementById("cipher-text");
+  const decryptedText = document.getElementById("decrypted-text");
+
+  plainTextInput.oninput = function (event) {
+    encryptedText.innerText = encryptedText.innerText + event.data;
+  };
+
+  cipherTextInput.oninput = function (event) {
+    decryptedText.innerText = decryptedText.innerText + event.data;
+  };
+`;
 
 function Editor(props: { height?: string; fontSize?: number }) {
   const { height = "100%", fontSize = 12 } = props;
@@ -132,7 +141,6 @@ function Editor(props: { height?: string; fontSize?: number }) {
     }
 
     reset();
-
   };
 
   return (
