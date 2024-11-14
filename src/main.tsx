@@ -4,6 +4,7 @@ import Playground from "./Playground.tsx";
 import "./index.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Solution from "./Solution.tsx";
 
 const root = document.getElementById("root");
 
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Playground />,
+  },
+  {
+    path: "/solution",
+    element: <Solution />,
   },
 ]);
 
