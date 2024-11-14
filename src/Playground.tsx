@@ -1,11 +1,11 @@
 import { Editor, Stage } from "./components";
 
-function App() {
+function Playground() {
   return (
     <div className="h-dvh bg-slate-700 flex gap-2 p-2">
       <div className="w-1/2 h-full">
         <div className="h-full flex items-center justify-center">
-            <Stage />
+          <Stage />
         </div>
       </div>
       <div className="w-1/2 h-full">
@@ -17,4 +17,4 @@ function App() {
   );
 }
 
-export default App;
+export default Playground;
